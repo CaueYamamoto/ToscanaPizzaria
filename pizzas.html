@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pizzas — Pizzaria Toscana</title>
+<meta name="description" content="Cardapio de pizzas da Toscana: sabores classicos e especiais nos tamanhos Media, Grande e Familia. Peca pelo WhatsApp.">
+<link rel="icon" type="image/svg+xml" href="assets/logo.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,650;1,9..144,500;1,9..144,650&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-bag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8h15l-1.5 12.5a1 1 0 0 1-1 .5H8.5a1 1 0 0 1-1-.5L6 8Z"/><path d="M9 10V6a3 3 0 0 1 6 0v4"/></symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.9a2 2 0 0 1-.5 2.1L8.1 10a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.9.5 2.9.7a2 2 0 0 1 1.6 2Z"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15M13 6l6 6-6 6"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+    <symbol id="i-chat" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.5 8.5 0 0 1-8.5 8.5c-1.5 0-3-.4-4.2-1L3 20l1.1-5.2A8.5 8.5 0 1 1 21 11.5Z"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></symbol>
+  </defs>
+</svg>
+
+<div class="topbar">
+  <div class="container">
+    <span class="topbar-item"><svg><use href="#i-pin"/></svg><span data-bind="address">Av. Higienopolis, 1234 — Centro</span></span>
+    <span class="topbar-item"><svg><use href="#i-clock"/></svg><span data-bind="hours">Terca a domingo · 18h as 23h</span>&nbsp;&nbsp;·&nbsp;&nbsp;<svg><use href="#i-phone"/></svg><a data-bind="phone-href" href="#"><span data-bind="phone">(43) 98860-4583</span></a></span>
+  </div>
+</div>
+
+<header class="site-header" id="siteHeader">
+  <div class="container header-inner">
+    <a class="brand" href="index.html" aria-label="Pizzaria Toscana — inicio">
+      <img src="assets/logo.svg" alt="Toscana" width="52" height="52">
+      <span><span class="brand-name">Toscana</span><span class="brand-sub">Pizzaria · Forno a lenha</span></span>
+    </a>
+    <nav class="main-nav" aria-label="Navegacao principal">
+      <a href="index.html">Inicio</a>
+      <a href="pizzas.html" class="is-active">Pizzas</a>
+      <a href="esfirras.html">Esfirras</a>
+      <a href="sobre.html">Sobre</a>
+    </nav>
+    <div class="header-actions">
+      <a class="btn btn--wine btn--sm" data-bind="wa" href="#"><svg><use href="#i-chat"/></svg>Pedir agora</a>
+      <button class="bag-btn" type="button" data-open-cart aria-label="Abrir pedido"><svg><use href="#i-bag"/></svg><span class="bag-count" data-cart-count style="display:none">0</span></button>
+      <button class="nav-toggle" type="button" id="mobileOpen" aria-label="Abrir menu"><svg><use href="#i-menu"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<nav class="mobile-nav" id="mobileNav" aria-label="Menu">
+  <div style="display:flex;justify-content:flex-end"><button class="icon-btn" type="button" id="mobileClose" aria-label="Fechar menu" style="border-color:var(--line);color:var(--wine-800)"><svg><use href="#i-x"/></svg></button></div>
+  <a class="mobile-link" href="index.html">Inicio</a>
+  <a class="mobile-link" href="pizzas.html">Pizzas</a>
+  <a class="mobile-link" href="esfirras.html">Esfirras</a>
+  <a class="mobile-link" href="sobre.html">Sobre</a>
+  <a class="btn btn--wine btn--block" data-bind="wa" href="#">Pedir no WhatsApp</a>
+</nav>
+
+<main>
+  <div class="page-hero">
+    <div class="page-hero-bg"><img src="assets/forno.jpg" alt=""></div>
+    <div class="container">
+      <p class="crumbs"><a href="index.html">Inicio</a> / Pizzas</p>
+      <h1>Nossas <em>pizzas</em></h1>
+      <p>Escolha o sabor e o tamanho — Media, Grande ou Familia. Todas montadas na hora e assadas no forno a lenha.</p>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="container">
+      <div class="filter-row" data-filters="gridPizzas">
+        <button type="button" class="filter-btn is-active" data-filter="all">Todas</button>
+        <button type="button" class="filter-btn" data-filter="salgada">Salgadas</button>
+        <button type="button" class="filter-btn" data-filter="doce">Doces</button>
+      </div>
+      <div class="grid grid--4" id="gridPizzas" data-menu="pizzas"></div>
+      <div class="menu-note"><strong>Tamanhos:</strong> Media (6 fatias) · Grande (8 fatias) · Familia (12 fatias). O valor e ajustado automaticamente ao trocar o tamanho no cartao.</div>
+      <div class="section-more">
+        <button class="btn btn--wine" type="button" data-open-cart><svg><use href="#i-bag"/></svg>Abrir meu pedido</button>
+        <a href="esfirras.html" class="btn btn--ghost">Ver esfirras<svg><use href="#i-arrow"/></svg></a>
+      </div>
+    </div>
+  </section>
+
+  <div class="cta-band">
+    <div class="container">
+      <div><h2>Montou seu pedido? <em>Finalize no WhatsApp.</em></h2><p>Sem cadastro, sem aplicativo — direto com a nossa equipe.</p></div>
+      <button class="btn btn--gold" type="button" data-open-cart><svg><use href="#i-bag"/></svg>Revisar pedido</button>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div>
+      <div class="footer-brand"><img src="assets/logo.svg" alt="Toscana"><span><strong>Toscana</strong><span>Pizzaria · Forno a lenha</span></span></div>
+      <p>Tradicao italiana, forno a lenha e massa artesanal desde 2009.</p>
+    </div>
+    <div><h4>Cardapio</h4><ul><li><a href="pizzas.html">Pizzas</a></li><li><a href="esfirras.html">Esfirras</a></li><li><a href="sobre.html">Sobre nos</a></li></ul></div>
+    <div><h4>Contato</h4><ul><li><a data-bind="phone-href" href="#"><span data-bind="phone">(43) 98860-4583</span></a></li><li><a data-bind="wa" href="#">WhatsApp</a></li></ul></div>
+    <div><h4>Visite-nos</h4><ul><li><span data-bind="address">Av. Higienopolis, 1234</span></li><li><span data-bind="hours">Terca a domingo · 18h as 23h</span></li></ul></div>
+  </div>
+  <div class="footer-bottom">© <span id="ano"></span> Pizzaria Toscana · Todos os direitos reservados</div>
+</footer>
+
+<div class="scrim" id="cartScrim"></div>
+<aside class="cart-drawer" id="cartDrawer" aria-label="Seu pedido">
+  <div class="drawer-head">
+    <div><h3>Seu pedido</h3><p>Revise e finalize no WhatsApp</p></div>
+    <button class="icon-btn" type="button" data-close-cart aria-label="Fechar"><svg><use href="#i-x"/></svg></button>
+  </div>
+  <div class="drawer-items" id="cartItems"></div>
+  <div class="drawer-foot">
+    <div class="total-line"><span>Total do pedido</span><strong id="cartTotal">R$ 0,00</strong></div>
+    <button class="btn btn--green btn--block" id="btnCheckout" type="button" data-open-checkout><svg><use href="#i-check"/></svg>Finalizar no WhatsApp</button>
+    <p class="foot-note">Taxa de entrega e pagamento combinados no WhatsApp.</p>
+  </div>
+</aside>
+
+<div class="modal" id="checkoutModal" role="dialog" aria-modal="true" aria-label="Finalizar pedido">
+  <div class="modal-card">
+    <div class="modal-head"><h3>Finalizar pedido</h3><p>Resumo · Total <strong id="checkoutTotal">R$ 0,00</strong></p></div>
+    <form class="modal-body" id="checkoutForm" novalidate>
+      <div class="order-resume" id="orderResume"></div>
+      <div class="field"><label for="fName">Nome <i>*</i></label><input id="fName" name="name" autocomplete="name" placeholder="Seu nome"><span class="field-error" id="fName-err">Informe seu nome.</span></div>
+      <div class="field"><label for="fAddress">Rua e numero <i>*</i></label><input id="fAddress" name="address" autocomplete="street-address" placeholder="Rua, numero"><span class="field-error" id="fAddress-err">Informe rua e numero.</span></div>
+      <div class="field-2col">
+        <div class="field"><label for="fDistrict">Bairro <i>*</i></label><input id="fDistrict" name="district" placeholder="Bairro"><span class="field-error" id="fDistrict-err">Informe o bairro.</span></div>
+        <div class="field"><label for="fNotes">Complemento / obs.</label><input id="fNotes" name="notes" placeholder="Apto, ponto de referencia..."></div>
+      </div>
+      <button type="submit" class="btn btn--green btn--block"><svg><use href="#i-chat"/></svg>Enviar pedido no WhatsApp</button>
+      <button type="button" class="btn btn--ghost btn--block" data-close-checkout>Voltar ao pedido</button>
+    </form>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status"></div>
+<a class="float-wa" data-bind="wa" href="#" aria-label="Conversar no WhatsApp"><svg><use href="#i-chat"/></svg></a>
+
+<script src="js/data.js"></script>
+<script src="js/store.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
