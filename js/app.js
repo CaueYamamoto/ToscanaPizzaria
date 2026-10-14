@@ -318,7 +318,7 @@
       box.innerHTML =
         '<div class="cart-empty">' + I.bag +
         "<p><strong>Seu carrinho está vazio.</strong><br>Que tal começar por uma das mais pedidas?</p>" +
-        '<a class="btn btn--wine btn--sm" href="pizzas.html">Ver cardápio</a></div>';
+        '<a class="btn btn--wine btn--sm" href="/pizzas">Ver cardápio</a></div>';
     } else {
       box.innerHTML = items.map(function (it, idx) {
         var p = store.find(it.id);
