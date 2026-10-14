@@ -4,12 +4,15 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Esfirras — Pizzaria Toscana</title>
-<meta name="description" content="Esfirras fresquinhas da Toscana: carne, queijo, frango e opcoes doces. Peca pelo WhatsApp.">
-<link rel="icon" type="image/svg+xml" href="assets/logo.svg">
+<meta name="description" content="Esfirras fresquinhas da Toscana: carne, queijo, frango e opções doces. Peça pelo WhatsApp.">
+<link rel="icon" type="image/png" href="assets/logo-mini.PNG">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,650;1,9..144,500;1,9..144,650&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
+<meta name="theme-color" content="#3d060e">
+<link rel="manifest" href="manifest.json">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FoodEstablishment","name":"Pizzaria Toscana"}</script>
 </head>
 <body>
 
@@ -29,19 +32,19 @@
 
 <div class="topbar">
   <div class="container">
-    <span class="topbar-item"><svg><use href="#i-pin"/></svg><span data-bind="address">Av. Higienopolis, 1234 — Centro</span></span>
-    <span class="topbar-item"><svg><use href="#i-clock"/></svg><span data-bind="hours">Terca a domingo · 18h as 23h</span>&nbsp;&nbsp;·&nbsp;&nbsp;<svg><use href="#i-phone"/></svg><a data-bind="phone-href" href="#"><span data-bind="phone">(43) 98860-4583</span></a></span>
+    <span class="topbar-item"><span class="open-badge" data-open-badge>Aberto</span></span><span class="topbar-item topbar-item--hide-mobile"><svg><use href="#i-pin"/></svg><span data-bind="address">Cambé/PR</span></span>
+    <span class="topbar-item"><svg><use href="#i-clock"/></svg><span data-bind="hours">Terça a domingo · 18h às 23h30</span>&nbsp;&nbsp;·&nbsp;&nbsp;<svg><use href="#i-phone"/></svg><a data-bind="phone-href" href="#"><span data-bind="phone">(43) 98860-4583</span></a></span>
   </div>
 </div>
 
 <header class="site-header" id="siteHeader">
   <div class="container header-inner">
-    <a class="brand" href="index.html" aria-label="Pizzaria Toscana — inicio">
-      <img src="assets/logo.svg" alt="Toscana" width="52" height="52">
-      <span><span class="brand-name">Toscana</span><span class="brand-sub">Pizzaria · Forno a lenha</span></span>
+    <a class="brand" href="index.html" aria-label="Pizzaria Toscana — início">
+      <span class="brand-badge"><img src="assets/logo-mini.PNG" alt="Toscana" width="52" height="52"></span>
+      <span><span class="brand-name">Toscana</span><span class="brand-sub">Longa Fermentação</span></span>
     </a>
-    <nav class="main-nav" aria-label="Navegacao principal">
-      <a href="index.html">Inicio</a>
+    <nav class="main-nav" aria-label="Navegação principal">
+      <a href="index.html">Início</a>
       <a href="pizzas.html">Pizzas</a>
       <a href="esfirras.html" class="is-active">Esfirras</a>
       <a href="sobre.html">Sobre</a>
@@ -56,7 +59,7 @@
 
 <nav class="mobile-nav" id="mobileNav" aria-label="Menu">
   <div style="display:flex;justify-content:flex-end"><button class="icon-btn" type="button" id="mobileClose" aria-label="Fechar menu" style="border-color:var(--line);color:var(--wine-800)"><svg><use href="#i-x"/></svg></button></div>
-  <a class="mobile-link" href="index.html">Inicio</a>
+  <a class="mobile-link" href="index.html">Início</a>
   <a class="mobile-link" href="pizzas.html">Pizzas</a>
   <a class="mobile-link" href="esfirras.html">Esfirras</a>
   <a class="mobile-link" href="sobre.html">Sobre</a>
@@ -65,9 +68,9 @@
 
 <main>
   <div class="page-hero">
-    <div class="page-hero-bg"><img src="assets/hero.jpg" alt=""></div>
+    <div class="page-hero-bg"><img src="assets/hero.jpg" alt="Esfirras fresquinhas da Toscana" loading="lazy" decoding="async"></div>
     <div class="container">
-      <p class="crumbs"><a href="index.html">Inicio</a> / Esfirras</p>
+      <p class="crumbs"><a href="index.html">Início</a> / Esfirras</p>
       <h1>Nossas <em>esfirras</em></h1>
       <p>Massa macia, recheio generoso e forno bem quente. Perfeitas para acompanhar a pizza — ou para matar a fome rapidinho.</p>
     </div>
@@ -76,12 +79,14 @@
   <section class="section">
     <div class="container">
       <div class="filter-row" data-filters="gridEsfirras">
-        <button type="button" class="filter-btn is-active" data-filter="all">Todas</button>
-        <button type="button" class="filter-btn" data-filter="salgada">Salgadas</button>
-        <button type="button" class="filter-btn" data-filter="doce">Doces</button>
+        <button type="button" class="filter-btn is-active" data-filter="all" aria-pressed="true">Todas</button>
+        <button type="button" class="filter-btn" data-filter="salgada" aria-pressed="false">Salgadas</button>
+        <button type="button" class="filter-btn" data-filter="doce" aria-pressed="false">Doces</button>
       </div>
+      <div class="search-row"><input type="search" data-search inputmode="search" enterkeyhint="search" placeholder="Buscar esfirra... ex: carne" aria-label="Buscar esfirras"><span class="count-pill" data-count="gridEsfirras" role="status"></span></div>
       <div class="grid grid--4" id="gridEsfirras" data-menu="esfirras"></div>
-      <div class="menu-note"><strong>Preco por unidade.</strong> Combine quantas quiser — salgadas e doces saem do mesmo forno, na mesma entrega.</div>
+      <div class="search-empty" data-search-empty style="display:none"><p>Nenhum sabor encontrado. <button type="button" class="link-half" data-clear-search>Limpar busca</button></p></div>
+      <div class="menu-note"><strong>Preço por unidade.</strong> Combine quantas quiser — salgadas e doces saem do mesmo forno, na mesma entrega.</div>
       <div class="section-more">
         <button class="btn btn--wine" type="button" data-open-cart><svg><use href="#i-bag"/></svg>Abrir meu pedido</button>
         <a href="pizzas.html" class="btn btn--ghost">Ver pizzas<svg><use href="#i-arrow"/></svg></a>
@@ -100,18 +105,18 @@
 <footer class="site-footer">
   <div class="container footer-grid">
     <div>
-      <div class="footer-brand"><img src="assets/logo.svg" alt="Toscana"><span><strong>Toscana</strong><span>Pizzaria · Forno a lenha</span></span></div>
-      <p>Tradicao italiana, forno a lenha e massa artesanal desde 2009.</p>
+      <img class="footer-logo" src="assets/logo-full.PNG" alt="Pizzaria Toscana — Pizzas e Esfirras">
+      <p style="margin-top:14px">Tradição italiana e massa de fermentação lenta.<br><span data-bind="address">Cambé/PR</span><br><span data-bind="hours">Terça a domingo · 18h às 23h30</span></p>
     </div>
-    <div><h4>Cardapio</h4><ul><li><a href="pizzas.html">Pizzas</a></li><li><a href="esfirras.html">Esfirras</a></li><li><a href="sobre.html">Sobre nos</a></li></ul></div>
-    <div><h4>Contato</h4><ul><li><a data-bind="phone-href" href="#"><span data-bind="phone">(43) 98860-4583</span></a></li><li><a data-bind="wa" href="#">WhatsApp</a></li></ul></div>
-    <div><h4>Visite-nos</h4><ul><li><span data-bind="address">Av. Higienopolis, 1234</span></li><li><span data-bind="hours">Terca a domingo · 18h as 23h</span></li></ul></div>
+    <div><h4>Cardápio</h4><ul><li><a href="pizzas.html">Pizzas</a></li><li><a href="esfirras.html">Esfirras</a></li><li><a href="sobre.html">Sobre nós</a></li></ul></div>
+    <div><h4>Contato</h4><ul><li><a data-bind="phone-href" href="#"><span data-bind="phone">(43) 98860-4583</span></a></li><li><a data-bind="wa" href="#">WhatsApp</a></li><li><a data-bind="ig" href="#" target="_blank" rel="noopener"><span data-bind="ig-handle">@toscana.cambe</span></a></li></ul></div>
+    <div><h4>Siga a Toscana</h4><a class="qr-card" data-bind="ig" href="#" target="_blank" rel="noopener" aria-label="Abrir o Instagram da Toscana"><img src="assets/qrcodeig.JPG" alt="QR Code do Instagram @toscana.cambe"></a><p class="qr-caption">Escaneie e siga <strong data-bind="ig-handle">@toscana.cambe</strong></p></div>
   </div>
   <div class="footer-bottom">© <span id="ano"></span> Pizzaria Toscana · Todos os direitos reservados</div>
 </footer>
 
 <div class="scrim" id="cartScrim"></div>
-<aside class="cart-drawer" id="cartDrawer" aria-label="Seu pedido">
+<aside class="cart-drawer" id="cartDrawer" role="dialog" aria-modal="true" aria-label="Seu pedido">
   <div class="drawer-head">
     <div><h3>Seu pedido</h3><p>Revise e finalize no WhatsApp</p></div>
     <button class="icon-btn" type="button" data-close-cart aria-label="Fechar"><svg><use href="#i-x"/></svg></button>
@@ -120,7 +125,7 @@
   <div class="drawer-foot">
     <div class="total-line"><span>Total do pedido</span><strong id="cartTotal">R$ 0,00</strong></div>
     <button class="btn btn--green btn--block" id="btnCheckout" type="button" data-open-checkout><svg><use href="#i-check"/></svg>Finalizar no WhatsApp</button>
-    <p class="foot-note">Taxa de entrega e pagamento combinados no WhatsApp.</p>
+    <p class="foot-note">Taxa de entrega e pagamento combinadas no WhatsApp.</p>
   </div>
 </aside>
 
@@ -129,21 +134,25 @@
     <div class="modal-head"><h3>Finalizar pedido</h3><p>Resumo · Total <strong id="checkoutTotal">R$ 0,00</strong></p></div>
     <form class="modal-body" id="checkoutForm" novalidate>
       <div class="order-resume" id="orderResume"></div>
-      <div class="field"><label for="fName">Nome <i>*</i></label><input id="fName" name="name" autocomplete="name" placeholder="Seu nome"><span class="field-error" id="fName-err">Informe seu nome.</span></div>
-      <div class="field"><label for="fAddress">Rua e numero <i>*</i></label><input id="fAddress" name="address" autocomplete="street-address" placeholder="Rua, numero"><span class="field-error" id="fAddress-err">Informe rua e numero.</span></div>
-      <div class="field-2col">
-        <div class="field"><label for="fDistrict">Bairro <i>*</i></label><input id="fDistrict" name="district" placeholder="Bairro"><span class="field-error" id="fDistrict-err">Informe o bairro.</span></div>
-        <div class="field"><label for="fNotes">Complemento / obs.</label><input id="fNotes" name="notes" placeholder="Apto, ponto de referencia..."></div>
-      </div>
-      <button type="submit" class="btn btn--green btn--block"><svg><use href="#i-chat"/></svg>Enviar pedido no WhatsApp</button>
-      <button type="button" class="btn btn--ghost btn--block" data-close-checkout>Voltar ao pedido</button>
+      <div class="field"><label for="fName">Nome <i>*</i></label><input id="fName" name="name" autocomplete="name" autocapitalize="words" enterkeyhint="next" aria-describedby="fName-err" placeholder="Seu nome"><span class="field-error" id="fName-err">Informe seu nome.</span></div>
+      <div class="field"><label for="fPhone">Telefone / WhatsApp <i>*</i></label><input id="fPhone" name="phone" inputmode="tel" autocomplete="tel" enterkeyhint="next" aria-describedby="fPhone-err" placeholder="(43) 99999-9999"><span class="field-error" id="fPhone-err">Informe um telefone valido com DDD.</span></div>
+      <div class="field"><label for="fAddress">Rua e número <i>*</i></label><input id="fAddress" name="address" autocomplete="street-address" enterkeyhint="next" aria-describedby="fAddress-err" placeholder="Rua, número"><span class="field-error" id="fAddress-err">Informe rua e número.</span></div>
+      <div class="field"><label for="fDistrict">Bairro <i>*</i></label><select id="fDistrict" name="district"><option value="">Selecione o bairro...</option></select><span class="field-error" id="fDistrict-err">Selecione o bairro para calcular a entrega.</span></div>
+      <div class="fee-preview" id="feePreview" role="status"></div>
+      <div class="field-2col"><div class="field"><label for="fPayment">Pagamento <i>*</i></label><select id="fPayment"><option value="">Selecione...</option><option>Pix</option><option>Cartão na entrega</option><option>Dinheiro</option></select><span class="field-error" id="fPayment-err">Selecione a forma de pagamento.</span></div><div class="field" id="fChangeWrap"><label for="fChange">Troco para (se dinheiro)</label><input id="fChange" inputmode="decimal" placeholder="Ex: 100"></div></div>
+      <div class="field"><label for="fNotes">Complemento / observações</label><input id="fNotes" name="notes" autocomplete="off" enterkeyhint="done" placeholder="Apto, ponto de referência..."></div>
+      <div class="modal-foot"><button type="submit" class="btn btn--green btn--block"><svg><use href="#i-chat"/></svg>Enviar pedido no WhatsApp</button>
+      <button type="button" class="btn btn--ghost btn--block" data-close-checkout>Voltar ao pedido</button></div>
     </form>
   </div>
 </div>
 
+<div class="modal" id="halfModal" role="dialog" aria-modal="true" aria-label="Montar meia-a-meia"><div class="modal-card"><div class="modal-head"><h3 id="halfTitle">Montar meia-a-meia</h3><p id="halfFee"></p></div><div class="modal-body"><div class="half-list" id="halfOptions"></div><div class="field"><label for="halfNotes">Observacao da pizza (opcional)</label><input id="halfNotes" maxlength="80" inputmode="text" enterkeyhint="done" placeholder="Ex: bem assada, sem cebola"></div><button type="button" class="btn btn--wine btn--block" data-confirm-half>Adicionar meia-a-meia</button><button type="button" class="btn btn--ghost btn--block" data-close-half>Cancelar</button></div></div></div><div class="modal" id="successModal" role="dialog" aria-modal="true" aria-label="Pedido enviado"><div class="modal-card"><div class="modal-head"><h3>Pedido enviado!</h3><p>Ja abrimos o WhatsApp para voce confirmar</p></div><div class="modal-body"><div class="success-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg></div><p id="successText"></p><button type="button" class="btn btn--green btn--block" data-close-success>Voltar ao cardapio</button><button type="button" class="btn btn--ghost btn--block" id="btnReorder" style="display:none">Pedir o ultimo pedido de novo</button></div></div></div><div class="sticky-bar" id="stickyBar" role="status"><div><strong id="stickyTotal">R$ 0,00</strong><br><span id="stickyCount"></span></div><button class="btn btn--gold btn--sm" type="button" data-open-cart>Abrir pedido</button></div>
+
 <div class="toast" id="toast" role="status"></div>
 <a class="float-wa" data-bind="wa" href="#" aria-label="Conversar no WhatsApp"><svg><use href="#i-chat"/></svg></a>
 
+<script>if("serviceWorker" in navigator){window.addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){});});}</script>
 <script src="js/data.js"></script>
 <script src="js/store.js"></script>
 <script src="js/app.js"></script>
