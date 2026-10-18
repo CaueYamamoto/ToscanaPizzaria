@@ -60,7 +60,14 @@ TOSCANA.store = (function () {
   }
 
   function allProducts() {
-    return (TOSCANA.pizzas || []).concat(TOSCANA.esfirras || []);
+    return (TOSCANA.pizzas || []).concat(TOSCANA.esfirras || [], TOSCANA.bebidas || []);
+  }
+
+  function categoryOf(id) {
+    if ((TOSCANA.pizzas || []).some(function (p) { return p.id === id; })) return "pizza";
+    if ((TOSCANA.esfirras || []).some(function (p) { return p.id === id; })) return "esfirra";
+    if ((TOSCANA.bebidas || []).some(function (p) { return p.id === id; })) return "bebida";
+    return null;
   }
 
   function activeProducts(list) {
@@ -193,11 +200,13 @@ TOSCANA.store = (function () {
   function lineLabel(item) {
     var p = find(item.id);
     if (!p) return item.id;
-    if (isPizza(item.id)) {
+    var cat = categoryOf(item.id);
+    if (cat === "pizza") {
       var second = item.halfId ? find(item.halfId) : null;
       var name = second ? (p.name + " / " + second.name) : p.name;
       return name + " (" + (item.size || "P") + ")";
     }
+    if (cat === "bebida") return p.name;
     return "Esfirra de " + p.name;
   }
 
@@ -309,6 +318,7 @@ TOSCANA.store = (function () {
     find: find,
     activeProducts: activeProducts,
     isPizza: isPizza,
+    categoryOf: categoryOf,
     unitPrice: unitPrice,
     basePrice: basePrice,
     lineLabel: lineLabel,

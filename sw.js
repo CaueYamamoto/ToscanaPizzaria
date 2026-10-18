@@ -5,6 +5,7 @@ const CORE = [
   '/index.html',
   '/pizzas.html',
   '/esfirras.html',
+  '/bebidas.html',
   '/sobre.html',
   '/css/style.css',
   '/manifest.json'

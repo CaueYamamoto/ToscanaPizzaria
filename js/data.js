@@ -121,5 +121,27 @@ TOSCANA.esfirras = [
   { id: "es-mm",             name: "M&M",                desc: "Chocolate ao leite com M&M.", price: 10.00, img: "assets/esfirra-chocolate.jpg", kind: "doce" }
 ];
 
+/* Bebidas (preço por unidade).
+   kind: "refrigerante" | "cerveja" | "suco". */
+TOSCANA.bebidas = [
+  /* ---- Refrigerantes ---- */
+  { id: "beb-coca-2l",      name: "Coca-Cola 2 L",            desc: "Garrafa de 2 litros, bem gelada.", price: 15.00, kind: "refrigerante" },
+  { id: "beb-coca-1l",      name: "Coca-Cola 1 L",            desc: "Garrafa de 1 litro, bem gelada.", price: 10.00, kind: "refrigerante" },
+  { id: "beb-fanta-2l",     name: "Fanta Laranja 2 L",        desc: "Garrafa de 2 litros, bem gelada.", price: 12.00, kind: "refrigerante" },
+  { id: "beb-guarana-2l",   name: "Guaraná 2 L",              desc: "Garrafa de 2 litros, bem gelada.", price: 12.00, kind: "refrigerante" },
+  { id: "beb-sprite-2l",    name: "Sprite 2 L",               desc: "Garrafa de 2 litros, bem gelada.", price: 12.00, kind: "refrigerante" },
+  /* ---- Latas (todas R$ 8,00) ---- */
+  { id: "beb-coca-lata",    name: "Coca-Cola Lata",           desc: "Lata 350 ml, gelada.", price: 8.00, kind: "refrigerante" },
+  { id: "beb-fanta-lata",   name: "Fanta Laranja Lata",       desc: "Lata 350 ml, gelada.", price: 8.00, kind: "refrigerante" },
+  { id: "beb-guarana-lata", name: "Guaraná Lata",             desc: "Lata 350 ml, gelada.", price: 8.00, kind: "refrigerante" },
+  { id: "beb-sprite-lata",  name: "Sprite Lata",              desc: "Lata 350 ml, gelada.", price: 8.00, kind: "refrigerante" },
+  { id: "beb-schweppes-lata", name: "Schweppes Citrus Lata",  desc: "Lata 350 ml, gelada.", price: 8.00, kind: "refrigerante" },
+  /* ---- Cervejas ---- */
+  { id: "beb-heineken",     name: "Heineken Long Neck",       desc: "Long neck 330 ml, gelada.", price: 12.00, kind: "cerveja" },
+  { id: "beb-skol-lata",     name: "Skol Lata",               desc: "Lata 350 ml, gelada.", price: 8.00, kind: "cerveja" },
+  /* ---- Sucos ---- */
+  { id: "beb-suco-laranja", name: "Suco de Laranja Natural 1 L", desc: "Suco natural de laranja, feito na hora.", price: 15.00, kind: "suco" }
+];
+
 /* Ids exibidos em "As mais pedidas" na pagina inicial. */
 TOSCANA.featured = ["pz-calabresa", "pz-4queijos", "pz-chef", "es-carne"];

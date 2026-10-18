@@ -14,7 +14,10 @@
     tradicional: "Tradicional",
     especial: "Especial",
     doce: "Doce",
-    salgada: "Salgada"
+    salgada: "Salgada",
+    refrigerante: "Refrigerante",
+    cerveja: "Cerveja",
+    suco: "Suco"
   };
 
   function esc(s) {
@@ -182,12 +185,13 @@
       var list = [];
       if (kind === "pizzas") list = store.activeProducts(TOSCANA.pizzas);
       else if (kind === "esfirras") list = store.activeProducts(TOSCANA.esfirras);
+      else if (kind === "bebidas") list = store.activeProducts(TOSCANA.bebidas);
       else if (kind === "featured") {
         list = (TOSCANA.featured || []).map(productById).filter(function (p) { return p && !p.paused; });
       }
       if (limit > 0) list = list.slice(0, limit);
       var typeOf = function (p) {
-        return (TOSCANA.pizzas || []).indexOf(p) !== -1 ? "pizza" : "esfirra";
+        return store.categoryOf(p.id) || "esfirra";
       };
       box.innerHTML = list.length
         ? list.map(function (p) { return cardHTML(p, typeOf(p)); }).join("")
@@ -311,9 +315,11 @@
         var p = store.find(it.id);
         if (!p) return "";
         var unit = store.unitPrice(it);
-        var meta = store.isPizza(it.id)
+        var cat = store.categoryOf(it.id);
+        var meta = cat === "pizza"
           ? "Pizza " + esc(store.lineLabel(it)) + " — " + store.money(unit) + (it.notes ? "<br>Obs: " + esc(it.notes) : "")
-          : "Esfirra · unidade — " + store.money(unit);
+          : (cat === "bebida" ? "Bebida · unidade — " + store.money(unit)
+                              : "Esfirra · unidade — " + store.money(unit));
         return (
           '<div class="cart-item">' +
             "<div><h4>" + esc(p.name) + (it.halfId && store.find(it.halfId) ? " / " + esc(store.find(it.halfId).name) : "") + "</h4>" +
