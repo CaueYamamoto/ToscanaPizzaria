@@ -13,7 +13,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,650;1,9..144,500;1,9..144,650&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/style.css?v=6">
 <meta name="theme-color" content="#3d060e">
 <link rel="manifest" href="/manifest.json">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FoodEstablishment","name":"Pizzaria Toscana"}</script>
@@ -246,7 +246,7 @@
 <div class="toast" id="toast" role="status"></div>
 <a class="float-wa" data-bind="wa" href="#" aria-label="Conversar no WhatsApp"><svg><use href="#i-chat"/></svg></a>
 
-<script>if("serviceWorker" in navigator){window.addEventListener("load",function(){navigator.serviceWorker.register("/sw.js").catch(function(){});});}</script>
+<script>if("serviceWorker" in navigator){window.addEventListener("load",function(){navigator.serviceWorker.register("/sw.js",{updateViaCache:"none"}).catch(function(){});});}</script>
 <script src="/js/data.js"></script>
 <script src="/js/store.js"></script>
 <script src="/js/app.js"></script>

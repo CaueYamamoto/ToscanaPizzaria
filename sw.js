@@ -1,13 +1,10 @@
 /* Toscana SW — v2: navigate network-first, nunca retorna redirect ao browser */
-const CACHE = 'toscana-v2';
+const CACHE = 'toscana-v9';
 const CORE = [
   '/',
   '/index.html',
-  '/pizzas',
   '/pizzas.html',
-  '/esfirras',
   '/esfirras.html',
-  '/sobre',
   '/sobre.html',
   '/css/style.css',
   '/manifest.json'
@@ -15,7 +12,9 @@ const CORE = [
 
 self.addEventListener('install', (e) => {
   e.waitUntil(
-    caches.open(CACHE).then((c) => c.addAll(CORE)).then(() => self.skipWaiting())
+    caches.open(CACHE)
+      .then((c) => Promise.all(CORE.map((u) => c.add(u).catch(() => {}))))
+      .then(() => self.skipWaiting())
   );
 });
 
@@ -27,13 +26,23 @@ self.addEventListener('activate', (e) => {
   );
 });
 
-async function fetchFlattened(request) {
-  // Segue redirects da Vercel (cleanUrls) até a URL final e NUNCA devolve redirect.
-  let res = await fetch(request);
-  if (res.redirected) {
-    res = await fetch(res.url);
+async function fetchPage(request) {
+  // Segue redirects da Vercel (cleanUrls). URLs limpas (/pizzas) só existem lá;
+  // em hosts estáticos (Live Server) tentamos o .html correspondente.
+  const url = new URL(request.url);
+  const candidates = [request];
+  const hasExt = /\.[a-z0-9]+$/i.test(url.pathname);
+  if (url.pathname !== '/' && !hasExt) {
+    candidates.push(url.origin + url.pathname.replace(/\/$/, '') + '.html' + url.search);
   }
-  return res;
+  for (const c of candidates) {
+    try {
+      let res = await fetch(c);
+      if (res.redirected) res = await fetch(res.url);
+      if (res.ok && res.type !== 'opaque') return res;
+    } catch {}
+  }
+  return null;
 }
 
 self.addEventListener('fetch', (e) => {
@@ -42,25 +51,33 @@ self.addEventListener('fetch', (e) => {
   if (e.request.method !== 'GET') return;
   if (url.pathname.includes('/js/')) return; // preço sempre fresco
 
+  // CSS: network-first para propagar atualizações (fallback offline ao cache)
+  if (url.pathname.startsWith('/css/')) {
+    e.respondWith(
+      fetch(e.request).then((res) => {
+        if (res.ok && res.type !== 'opaque') {
+          const copy = res.clone();
+          caches.open(CACHE).then((c) => c.put(e.request, copy)).catch(() => {});
+          return res;
+        }
+        return caches.match(e.request).then((hit) => hit || res);
+      }).catch(() => caches.match(e.request))
+    );
+    return;
+  }
+
   // Navegação: network-first + achata redirect + fallback offline
   if (e.request.mode === 'navigate') {
     e.respondWith(
       (async () => {
-        try {
-          const res = await fetchFlattened(e.request);
-          // Nunca cachear nem retornar redirect/opaque/erro
-          if (!res.ok || res.redirected || res.type === 'opaque') {
-            const hit = await caches.match(e.request);
-            return hit || (await caches.match('/index.html'));
-          }
+        const res = await fetchPage(e.request);
+        if (res) {
           const copy = res.clone();
-          const cache = await caches.open(CACHE);
-          cache.put(e.request, copy).catch(() => {});
+          caches.open(CACHE).then((c) => c.put(e.request, copy)).catch(() => {});
           return res;
-        } catch {
-          const hit = await caches.match(e.request);
-          return hit || (await caches.match('/index.html'));
         }
+        const hit = await caches.match(e.request);
+        return hit || (await caches.match('/index.html'));
       })()
     );
     return;
