@@ -16,10 +16,10 @@
   --wine-700: #7c1220;
   --wine-600: #9c1b28;
   --ember: #b3282d;
-  --cream: #faf4e8;
+  --cream: #f3e7d1;
   --paper: #fffdf7;
-  --sand: #f2e8d3;
-  --line: #e7d9be;
+  --sand: #efe1c5;
+  --line: #ddc9a3;
   --gold-700: #8a6414;
   --gold-500: #b98a2f;
   --gold-300: #d9b45b;
@@ -47,11 +47,16 @@
 html { scroll-behavior: smooth; }
 body {
   font-family: var(--font-body);
-  background: var(--cream);
+  background-color: var(--cream);
+  background-image:
+    radial-gradient(circle at 12% 8%, rgba(185, 138, 47, 0.08), transparent 42%),
+    radial-gradient(circle at 88% 26%, rgba(124, 18, 32, 0.05), transparent 46%);
+  background-attachment: fixed;
   color: var(--ink);
   line-height: 1.65;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  overflow-x: hidden;
 }
 img { display: block; max-width: 100%; }
 a { color: inherit; }
@@ -68,7 +73,11 @@ p { margin-block: 0; }
 .ic { width: 18px; height: 18px; flex: none; }
 .section { padding-block: clamp(56px, 7vw, 96px); }
 .section--tight { padding-block: clamp(40px, 5vw, 64px); }
-.section--white { background: var(--paper); border-block: 1px solid var(--line); }
+.section--white {
+  background: linear-gradient(180deg, #fffef9, var(--paper));
+  background-image: radial-gradient(circle at 85% 0%, rgba(185, 138, 47, 0.06), transparent 40%), linear-gradient(180deg, #fffef9, var(--paper));
+  border-block: 1px solid var(--line);
+}
 .eyebrow {
   display: inline-flex; align-items: center; gap: 12px;
   font-size: 0.75rem; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase;
@@ -117,13 +126,14 @@ p { margin-block: 0; }
 
 .site-header {
   position: sticky; top: 0; z-index: 60;
-  background: rgba(250, 244, 232, 0.94);
+  background: rgba(243, 231, 209, 0.92);
   backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
   border-bottom: 1px solid var(--line);
   transition: box-shadow 0.2s ease;
 }
 .site-header.is-scrolled { box-shadow: var(--shadow-md); }
-.header-inner { display: flex; align-items: center; justify-content: space-between; gap: 18px; min-height: var(--header-h); }
+.header-inner { display: flex; align-items: center; justify-content: space-between; gap: 18px; min-height: var(--header-h); min-width: 0; }
+.header-inner > * { min-width: 0; }
 .brand { display: flex; align-items: center; gap: 13px; text-decoration: none; }
 .brand-badge {
   width: 54px; height: 54px; flex: none;
@@ -216,12 +226,14 @@ p { margin-block: 0; }
 /* Cardápios usam grade fluida (sem fotos, cartas text-first) */
 [data-menu] { grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); }
 .product-card {
-  background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius-lg);
-  display: flex; flex-direction: column;
+  background: linear-gradient(180deg, #fffefb, var(--paper)); border: 1px solid var(--line); border-left: 4px solid var(--wine-700);
+  border-radius: var(--radius-lg); display: flex; flex-direction: column; min-width: 0;
   box-shadow: var(--shadow-sm);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 .product-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-md); }
+.product-card[data-kind="especial"] { border-left-color: var(--gold-500); }
+.product-card[data-kind="doce"] { border-left-color: #c98a6e; }
 .pc-head { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
 .pc-head h3 { font-size: 1.25rem; color: var(--wine-800); }
 .cat-tag {
@@ -230,9 +242,9 @@ p { margin-block: 0; }
   padding: 4px 9px; border-radius: 999px;
 }
 .product-card[data-kind="especial"] .cat-tag { color: var(--gold-700); }
-.product-body { padding: 20px 20px 22px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+.product-body { padding: 22px 22px 24px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
 .product-desc { font-size: 0.9rem; color: var(--muted); flex: 1; }
-.size-row { display: flex; gap: 8px; margin-top: 6px; }
+.size-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
 .size-pill {
   border: 1px solid var(--line); background: var(--cream); color: var(--ink);
   border-radius: 999px; padding: 8px 14px; font-size: 0.8rem; font-weight: 700; cursor: pointer;
@@ -241,7 +253,7 @@ p { margin-block: 0; }
 .size-pill:hover { border-color: var(--gold-500); }
 .size-pill.is-active { background: var(--wine-800); border-color: var(--wine-800); color: #fff; }
 .product-foot { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 10px; padding-top: 14px; border-top: 1px dashed var(--line); }
-.product-price { font-family: var(--font-display); font-size: 1.35rem; font-weight: 700; color: var(--wine-800); }
+.product-price { font-family: var(--font-display); font-size: 1.5rem; font-weight: 700; color: var(--wine-800); line-height: 1.05; letter-spacing: -0.01em; }
 .product-price small { display: block; font-family: var(--font-body); font-size: 0.72rem; font-weight: 600; color: var(--faint); text-transform: uppercase; letter-spacing: 0.08em; }
 .add-btn {
   display: inline-flex; align-items: center; gap: 8px;
@@ -364,7 +376,7 @@ p { margin-block: 0; }
 .drawer-items { flex: 1; overflow-y: auto; padding: 18px; display: flex; flex-direction: column; gap: 12px; }
 .cart-empty { text-align: center; padding: 56px 20px; color: var(--muted); }
 .cart-empty svg { width: 52px; height: 52px; color: var(--line); margin: 0 auto 14px; }
-.cart-item { background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); padding: 12px; display: grid; grid-template-columns: 1fr auto; gap: 12px; align-items: center; }
+.cart-item { background: var(--paper); border: 1px solid var(--line); border-left: 4px solid var(--wine-700); border-radius: var(--radius); padding: 12px 14px; display: grid; grid-template-columns: 1fr auto; gap: 12px; align-items: center; }
 .cart-item h4 { font-family: var(--font-body); font-size: 0.9rem; font-weight: 700; color: var(--wine-800); }
 .cart-item .meta { font-size: 0.78rem; color: var(--muted); }
 .qty { display: inline-flex; align-items: center; gap: 10px; margin-top: 8px; }
@@ -476,15 +488,16 @@ body.cart-open .float-wa, body.cart-open .sticky-bar { display: none; }
 }
 /* ---------- 16b. Mobile — cards compactos 2 colunas ---------- */
 @media (max-width: 680px) and (min-width: 381px) {
-  .grid--4, .grid--3 { grid-template-columns: repeat(2, 1fr); gap: 12px; }
-  .product-body { padding: 14px; gap: 6px; }
-  .product-body h3 { font-size: 1.02rem; line-height: 1.2; }
+  .grid--4, .grid--3, [data-menu] { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .product-card { border-left-width: 3px; }
+  .product-body { padding: 12px; gap: 6px; min-width: 0; }
+  .product-body h3 { font-size: 0.98rem; line-height: 1.2; }
   .product-desc { font-size: 0.8rem; line-height: 1.45; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
-  .price-list { font-size: 0.72rem; }
-  .product-price { font-size: 1.1rem; }
-  .add-btn { padding: 10px 12px; font-size: 0.8rem; }
-  .product-foot { gap: 8px; }
-  .size-pill { padding: 8px 12px; font-size: 0.76rem; }
+  .price-list { font-size: 0.7rem; overflow-wrap: anywhere; }
+  .size-pill { padding: 6px 9px; font-size: 0.72rem; }
+  .product-price { font-size: 1.05rem; }
+  .add-btn { padding: 8px 10px; font-size: 0.74rem; }
+  .product-foot { gap: 6px; }
 }
 @media (max-width: 680px) {
   :root { --header-h: 60px; }
