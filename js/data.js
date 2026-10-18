@@ -4,8 +4,8 @@
    COMO EDITAR
    1. Telefone, endereço e horário: objeto CONFIG abaixo.
    2. Preços e descrições: listas PIZZAS e ESFIRRAS.
-      O preço de cada pizza é o da PEQUENA; Média = x1.3, Grande = x1.6
-      (ajuste os multiplicadores em TOSCANA.sizes).
+      O preço da pizza vem da CATEGORIA (kind) e do tamanho: edite
+      TOSCANA.pizzaPrices. O preço das esfirras vem do campo price do item.
    3. Fotos: troque o arquivo em assets/ mantendo o mesmo nome.
    4. Destaques da home: lista FEATURED (use os ids dos produtos).
    5. Para pausar um sabor sem apagar: adicione paused:true no item.
@@ -54,56 +54,71 @@ TOSCANA.fees = {
 
 TOSCANA.payments = ["Pix", "Cartão na entrega", "Dinheiro"];
 
-/* Tamanhos de pizza. "mult" multiplica o preço base (PEQUENA). */
+/* Tamanhos de pizza. */
 TOSCANA.sizes = [
-  { code: "P", label: "Pequena", detail: "6 fatias", mult: 1 },
-  { code: "M", label: "Média", detail: "8 fatias", mult: 1.3 },
-  { code: "G", label: "Grande", detail: "12 fatias", mult: 1.6 }
+  { code: "P", label: "Pequena", detail: "6 fatias" },
+  { code: "M", label: "Média", detail: "8 fatias" },
+  { code: "G", label: "Grande", detail: "12 fatias" }
 ];
 
-/* Pizzas. Campos: id, name, desc, price (tamanho P), img, badge, kind.
-   kind: "tradicional" | "especial" | "doce". */
+/* Preços das pizzas por CATEGORIA (kind) e tamanho. */
+TOSCANA.pizzaPrices = {
+  tradicional: { P: 59.00, M: 69.00, G: 75.00 },
+  especial:    { P: 69.00, M: 79.00, G: 89.00 },
+  doce:        { P: 69.00, M: 79.00, G: 89.00 }
+};
+
+/* Pizzas. Campos: id, name, desc, img, kind.
+   kind: "tradicional" | "especial" | "doce".
+   O preço NÃO fica aqui: vem de TOSCANA.pizzaPrices pela categoria. */
 TOSCANA.pizzas = [
   /* ---- Tradicionais ---- */
-  { id: "pz-mussarela",    name: "Mussarela",          desc: "Molho de tomate, mussarela e rodelas de tomate.", price: 44.90, img: "assets/pizza-margherita.jpg", badge: "", kind: "tradicional" },
-  { id: "pz-alho-oleo",    name: "Alho e Óleo",        desc: "Molho de tomate, mussarela e alho frito.", price: 46.90, img: "assets/pizza-4queijos.jpg",   badge: "", kind: "tradicional" },
-  { id: "pz-calabresa",    name: "Calabresa",          desc: "Molho de tomate, mussarela, calabresa e cebola fatiada.", price: 48.90, img: "assets/pizza-calabresa.jpg",  badge: "Mais pedida", kind: "tradicional" },
-  { id: "pz-napolitana",   name: "Napolitana",         desc: "Molho de tomate, mussarela, presunto e tomate-cereja.", price: 49.90, img: "assets/pizza-margherita.jpg", badge: "", kind: "tradicional" },
-  { id: "pz-milho",        name: "Milho Verde",        desc: "Molho de tomate, mussarela, milho, tomate em rodelas e parmesão.", price: 49.90, img: "assets/pizza-frango.jpg",     badge: "", kind: "tradicional" },
-  { id: "pz-bacon-milho",  name: "Bacon com Milho",    desc: "Molho de tomate, mussarela, tomate, bacon e milho verde.", price: 52.90, img: "assets/pizza-pepperoni.jpg",  badge: "", kind: "tradicional" },
-  { id: "pz-baiana",       name: "Baiana",             desc: "Molho de tomate, presunto, mussarela, calabresa em cubos, cebola, ovos e molho de pimenta vermelha.", price: 52.90, img: "assets/pizza-calabresa.jpg",  badge: "", kind: "tradicional" },
-  { id: "pz-frango-queijo", name: "Frango com Queijo", desc: "Molho de tomate, frango desfiado, mussarela e rodelas de tomate.", price: 52.90, img: "assets/pizza-frango.jpg",     badge: "Mais pedida", kind: "tradicional" },
-  { id: "pz-portuguesa",   name: "Portuguesa",         desc: "Molho de tomate, presunto, mussarela, cebola, ervilha fresca, milho, ovos e tomate.", price: 53.90, img: "assets/pizza-portuguesa.jpg", badge: "Mais pedida", kind: "tradicional" },
-  { id: "pz-brocolis",     name: "Brócolis",           desc: "Molho de tomate, mussarela, brócolis, bacon, alho frito e tomate.", price: 53.90, img: "assets/pizza-toscana.jpg",    badge: "", kind: "tradicional" },
-  { id: "pz-palmito",      name: "Palmito",            desc: "Molho de tomate, mussarela, palmito, Catupiry e tomate.", price: 54.90, img: "assets/pizza-4queijos.jpg",   badge: "", kind: "tradicional" },
-  { id: "pz-atum",         name: "Atum",               desc: "Molho de tomate, mussarela, atum, cebola fatiada e tomate.", price: 54.90, img: "assets/pizza-portuguesa.jpg", badge: "", kind: "tradicional" },
+  { id: "pz-mussarela",    name: "Mussarela",          desc: "Molho de tomate, mussarela e rodelas de tomate.", img: "assets/pizza-margherita.jpg", kind: "tradicional" },
+  { id: "pz-alho-oleo",    name: "Alho e Óleo",        desc: "Molho de tomate, mussarela e alho frito.", img: "assets/pizza-4queijos.jpg",   kind: "tradicional" },
+  { id: "pz-calabresa",    name: "Calabresa",          desc: "Molho de tomate, mussarela, calabresa e cebola fatiada.", img: "assets/pizza-calabresa.jpg",  kind: "tradicional" },
+  { id: "pz-napolitana",   name: "Napolitana",         desc: "Molho de tomate, mussarela, presunto e tomate-cereja.", img: "assets/pizza-margherita.jpg", kind: "tradicional" },
+  { id: "pz-milho",        name: "Milho Verde",        desc: "Molho de tomate, mussarela, milho, tomate em rodelas e parmesão.", img: "assets/pizza-frango.jpg",     kind: "tradicional" },
+  { id: "pz-bacon-milho",  name: "Bacon com Milho",    desc: "Molho de tomate, mussarela, tomate, bacon e milho verde.", img: "assets/pizza-pepperoni.jpg",  kind: "tradicional" },
+  { id: "pz-baiana",       name: "Baiana",             desc: "Molho de tomate, presunto, mussarela, calabresa em cubos, cebola, ovos e molho de pimenta vermelha.", img: "assets/pizza-calabresa.jpg",  kind: "tradicional" },
+  { id: "pz-frango-queijo", name: "Frango com Queijo", desc: "Molho de tomate, frango desfiado, mussarela e rodelas de tomate.", img: "assets/pizza-frango.jpg",     kind: "tradicional" },
+  { id: "pz-frango-catupiry", name: "Frango com Catupiry", desc: "Molho de tomate, frango desfiado, mussarela e Catupiry.", img: "assets/pizza-frango.jpg",     kind: "tradicional" },
+  { id: "pz-portuguesa",   name: "Portuguesa",         desc: "Molho de tomate, presunto, mussarela, cebola, ervilha fresca, milho, ovos e tomate.", img: "assets/pizza-portuguesa.jpg", kind: "tradicional" },
+  { id: "pz-brocolis",     name: "Brócolis",           desc: "Molho de tomate, mussarela, brócolis, bacon, alho frito e tomate.", img: "assets/pizza-toscana.jpg",    kind: "tradicional" },
+  { id: "pz-palmito",      name: "Palmito",            desc: "Molho de tomate, mussarela, palmito, Catupiry e tomate.", img: "assets/pizza-4queijos.jpg",   kind: "tradicional" },
+  { id: "pz-atum",         name: "Atum",               desc: "Molho de tomate, mussarela, atum, cebola fatiada e tomate.", img: "assets/pizza-portuguesa.jpg", kind: "tradicional" },
   /* ---- Especiais ---- */
-  { id: "pz-caprese",      name: "Caprese Toscana",    desc: "Molho de tomate, mussarela de búfala, tomate-cereja, manjericão fresco e parmesão.", price: 59.90, img: "assets/pizza-margherita.jpg", badge: "Edição da casa", kind: "especial" },
-  { id: "pz-calabresa-esp", name: "Calabresa Especial", desc: "Molho de tomate, mussarela, calabresa, cebola roxa laminada, Catupiry e tomate.", price: 62.90, img: "assets/pizza-calabresa.jpg",  badge: "Edição da casa", kind: "especial" },
-  { id: "pz-champ-toscana", name: "Champignon Toscana", desc: "Molho de tomate, frango desfiado, mussarela, Catupiry, champignon, milho e tomate.", price: 64.90, img: "assets/pizza-frango.jpg",     badge: "", kind: "especial" },
-  { id: "pz-oro",          name: "Oro di Toscana",     desc: "Molho de tomate, mussarela, frango desfiado, milho, bacon, cheddar e tomate.", price: 64.90, img: "assets/pizza-pepperoni.jpg",  badge: "", kind: "especial" },
-  { id: "pz-lucca",        name: "Lucca Bianca",       desc: "Molho de tomate, mussarela, lombo canadense, tomate-cereja e Catupiry.", price: 62.90, img: "assets/pizza-toscana.jpg",    badge: "", kind: "especial" },
-  { id: "pz-carne-seca",   name: "Carne-Seca Especial", desc: "Molho de tomate, carne-seca desfiada, mussarela, cebola roxa fatiada, pimentão em fatias e tomate.", price: 64.90, img: "assets/pizza-toscana.jpg",    badge: "", kind: "especial" },
-  { id: "pz-champ-mista",  name: "Champignon Mista",   desc: "Molho de tomate, mussarela, presunto, palmito, ervilha fresca, milho, bacon, tomate e cebola.", price: 62.90, img: "assets/pizza-portuguesa.jpg", badge: "", kind: "especial" },
-  { id: "pz-strogonoff",   name: "Strogonoff de Carne", desc: "Molho de tomate, strogonoff de carne, mussarela e batata palha.", price: 64.90, img: "assets/pizza-frango.jpg",     badge: "", kind: "especial" },
-  { id: "pz-chef",        name: "Toscana do Chef",   desc: "Molho de tomate, ragu de linguiça, mussarela de búfala, cebola roxa fatiada e tomate-cereja.", price: 69.90, img: "assets/pizza-toscana.jpg",    badge: "Edição da casa", kind: "especial" },
-  { id: "pz-4queijos",     name: "4 Queijos",          desc: "Molho de tomate, mussarela, provolone, gorgonzola e parmesão.", price: 59.90, img: "assets/pizza-4queijos.jpg",   badge: "Mais pedida", kind: "especial" },
+  { id: "pz-caprese",      name: "Caprese Toscana",    desc: "Molho de tomate, mussarela de búfala, tomate-cereja, manjericão fresco e parmesão.", img: "assets/pizza-margherita.jpg", kind: "especial" },
+  { id: "pz-calabresa-esp", name: "Calabresa Especial", desc: "Molho de tomate, mussarela, calabresa, cebola roxa laminada, Catupiry e tomate.", img: "assets/pizza-calabresa.jpg",  kind: "especial" },
+  { id: "pz-champ-toscana", name: "Champignon Toscana", desc: "Molho de tomate, frango desfiado, mussarela, Catupiry, champignon, milho e tomate.", img: "assets/pizza-frango.jpg",     kind: "especial" },
+  { id: "pz-oro",          name: "Oro di Toscana",     desc: "Molho de tomate, mussarela, frango desfiado, milho, bacon, cheddar e tomate.", img: "assets/pizza-pepperoni.jpg",  kind: "especial" },
+  { id: "pz-lucca",        name: "Lucca Bianca",       desc: "Molho de tomate, mussarela, lombo canadense, tomate-cereja e Catupiry.", img: "assets/pizza-toscana.jpg",    kind: "especial" },
+  { id: "pz-carne-seca",   name: "Carne-Seca Especial", desc: "Molho de tomate, carne-seca desfiada, mussarela, cebola roxa fatiada, pimentão em fatias e tomate.", img: "assets/pizza-toscana.jpg",    kind: "especial" },
+  { id: "pz-champ-mista",  name: "Champignon Mista",   desc: "Molho de tomate, mussarela, presunto, palmito, ervilha fresca, milho, bacon, tomate e cebola.", img: "assets/pizza-portuguesa.jpg", kind: "especial" },
+  { id: "pz-strogonoff",   name: "Strogonoff de Carne", desc: "Molho de tomate, strogonoff de carne, mussarela e batata palha.", img: "assets/pizza-frango.jpg",     kind: "especial" },
+  { id: "pz-chef",        name: "Toscana do Chef",   desc: "Molho de tomate, ragu de linguiça, mussarela de búfala, cebola roxa fatiada e tomate-cereja.", img: "assets/pizza-toscana.jpg",    kind: "especial" },
+  { id: "pz-4queijos",     name: "4 Queijos",          desc: "Molho de tomate, mussarela, provolone, gorgonzola e parmesão.", img: "assets/pizza-4queijos.jpg",   kind: "especial" },
   /* ---- Doces ---- */
-  { id: "pz-brigadeiro",   name: "Brigadeiro",         desc: "Creme especial de chocolate ao leite cremoso, mussarela e granulado.", price: 49.90, img: "assets/pizza-chocolate.jpg",  badge: "", kind: "doce" },
-  { id: "pz-banana",       name: "Banana",             desc: "Doce de leite cremoso, banana em rodelas, mussarela e canela.", price: 49.90, img: "assets/pizza-chocolate.jpg",  badge: "", kind: "doce" },
-  { id: "pz-cocadinha",    name: "Cocadinha",          desc: "Creme branco especial, mussarela, cocada e coco ralado.", price: 52.90, img: "assets/pizza-chocolate.jpg",  badge: "", kind: "doce" },
-  { id: "pz-mm",           name: "M&M",                desc: "Creme de chocolate ao leite, mussarela e M&M.", price: 52.90, img: "assets/pizza-chocolate.jpg",  badge: "", kind: "doce" },
-  { id: "pz-nevada",       name: "Nevada",             desc: "Creme de morango, creme de chocolate ao leite, morangos frescos laminados, finalizada com Leite Ninho.", price: 54.90, img: "assets/pizza-chocolate.jpg",  badge: "Mais pedida", kind: "doce" }
+  { id: "pz-brigadeiro",   name: "Brigadeiro",         desc: "Creme especial de chocolate ao leite cremoso, mussarela e granulado.", img: "assets/pizza-chocolate.jpg",  kind: "doce" },
+  { id: "pz-banana",       name: "Banana",             desc: "Doce de leite cremoso, banana em rodelas, mussarela e canela.", img: "assets/pizza-chocolate.jpg",  kind: "doce" },
+  { id: "pz-cocadinha",    name: "Cocadinha",          desc: "Creme branco especial, mussarela, cocada e coco ralado.", img: "assets/pizza-chocolate.jpg",  kind: "doce" },
+  { id: "pz-mm",           name: "M&M",                desc: "Creme de chocolate ao leite, mussarela e M&M.", img: "assets/pizza-chocolate.jpg",  kind: "doce" },
+  { id: "pz-nevada",       name: "Nevada",             desc: "Creme de morango, creme de chocolate ao leite, morangos frescos laminados, finalizada com Leite Ninho.", img: "assets/pizza-chocolate.jpg",  kind: "doce" }
 ];
 
 /* Esfirras (preço por unidade). */
 TOSCANA.esfirras = [
-  { id: "es-carne",     name: "Carne",     desc: "Carne moída temperada com tomate, cebola e toque de limão.", price: 8.00,  img: "assets/esfirra-carne.jpg",     badge: "Mais pedida", kind: "salgada" },
-  { id: "es-queijo",    name: "Queijo",    desc: "Mussarela gratinada com orégano.", price: 8.50,  img: "assets/esfirra-queijo.jpg",    badge: "", kind: "salgada" },
-  { id: "es-frango",    name: "Frango",    desc: "Frango desfiado cremoso com catupiry.", price: 9.00,  img: "assets/esfirra-frango.jpg",    badge: "", kind: "salgada" },
-  { id: "es-calabresa", name: "Calabresa", desc: "Calabresa moída, cebola e mussarela.", price: 9.00,  img: "assets/esfirra-calabresa.jpg", badge: "", kind: "salgada" },
-  { id: "es-chocolate", name: "Chocolate", desc: "Chocolate ao leite cremoso.", price: 10.00, img: "assets/esfirra-chocolate.jpg", badge: "", kind: "doce" },
-  { id: "es-prestigio", name: "Prestígio", desc: "Chocolate, coco ralado e leite condensado.", price: 11.00, img: "assets/esfirra-prestigio.jpg", badge: "Edição da casa", kind: "doce" }
+  { id: "es-carne",          name: "Carne",              desc: "Carne moída temperada com tomate, cebola e toque de limão.", price: 8.90,  img: "assets/esfirra-carne.jpg",     kind: "salgada" },
+  { id: "es-queijo",         name: "Queijo",             desc: "Mussarela gratinada com orégano.", price: 8.90,  img: "assets/esfirra-queijo.jpg",    kind: "salgada" },
+  { id: "es-napolitana",     name: "Napolitana",         desc: "Molho de tomate, mussarela, presunto e tomate.", price: 8.90,  img: "assets/esfirra-queijo.jpg",    kind: "salgada" },
+  { id: "es-frango",         name: "Frango",             desc: "Frango desfiado com queijo.", price: 8.90,  img: "assets/esfirra-frango.jpg",    kind: "salgada" },
+  { id: "es-frango-catupiry", name: "Frango com Catupiry", desc: "Frango desfiado, mussarela e catupiry.", price: 8.90,  img: "assets/esfirra-frango.jpg",    kind: "salgada" },
+  { id: "es-calabresa",      name: "Calabresa",          desc: "Calabresa moída, cebola e mussarela.", price: 8.90,  img: "assets/esfirra-calabresa.jpg", kind: "salgada" },
+  { id: "es-brocolis",       name: "Brócolis",           desc: "Mussarela, brócolis, alho frito e tomate.", price: 8.90,  img: "assets/esfirra-calabresa.jpg", kind: "salgada" },
+  { id: "es-atum",           name: "Atum",               desc: "Atum, cebola fatiada e queijo cremoso.", price: 8.90,  img: "assets/esfirra-calabresa.jpg", kind: "salgada" },
+  { id: "es-brigadeiro",     name: "Brigadeiro",         desc: "Chocolate ao leite cremoso com granulado.", price: 10.00, img: "assets/esfirra-chocolate.jpg", kind: "doce" },
+  { id: "es-prestigio",      name: "Prestígio",          desc: "Chocolate, coco ralado e leite condensado.", price: 10.00, img: "assets/esfirra-prestigio.jpg", kind: "doce" },
+  { id: "es-sensacao",       name: "Sensação",           desc: "Chocolate ao leite com morango e leite condensado.", price: 10.00, img: "assets/esfirra-prestigio.jpg", kind: "doce" },
+  { id: "es-mm",             name: "M&M",                desc: "Chocolate ao leite com M&M.", price: 10.00, img: "assets/esfirra-chocolate.jpg", kind: "doce" }
 ];
 
 /* Ids exibidos em "As mais pedidas" na pagina inicial. */

@@ -3,7 +3,6 @@
    --------------------------------------------------------------------------
    Camada de dados: sem DOM aqui. Persistencia em localStorage.
    Item: { id, halfId?, size, qty, notes? } (size P|M|G p/ pizza, UN p/ esfiha)
-   Sem borda recheada (decisão do dono).
    ========================================================================== */
 var TOSCANA = TOSCANA || {};
 
@@ -80,18 +79,14 @@ TOSCANA.store = (function () {
     return (TOSCANA.pizzas || []).some(function (p) { return p.id === id; });
   }
 
-  function sizeMult(code) {
-    var sizes = TOSCANA.sizes || [];
-    for (var i = 0; i < sizes.length; i++) {
-      if (sizes[i].code === code) return sizes[i].mult;
-    }
-    return 1;
-  }
-
   function round2(n) { return Math.round((Number(n) || 0) * 100) / 100; }
 
   function basePrice(p, size) {
-    if (isPizza(p.id)) return round2(p.price * sizeMult(size || "P"));
+    if (isPizza(p.id)) {
+      var table = (TOSCANA.pizzaPrices || {})[p.kind] || {};
+      var code = size || "P";
+      if (table[code] != null) return round2(table[code]);
+    }
     return round2(p.price);
   }
 

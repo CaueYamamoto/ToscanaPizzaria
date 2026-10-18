@@ -1,7 +1,3 @@
-/* ==========================================================================
-   PIZZARIA TOSCANA — Camada de interface (app)
-   Sem backend. Sem borda recheada.
-   ========================================================================== */
 (function () {
   "use strict";
 
@@ -14,13 +10,11 @@
     bag: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8h15l-1.5 12.5a1 1 0 0 1-1 .5H8.5a1 1 0 0 1-1-.5L6 8Z"/><path d="M9 10V6a3 3 0 0 1 6 0v4"/></svg>'
   };
 
-  var FALLBACK_IMG = {
-    tradicional: "assets/pizza-calabresa.jpg",
-    especial: "assets/pizza-toscana.jpg",
-    doce: "assets/pizza-chocolate.jpg",
-    salgada: "assets/esfirra-carne.jpg",
-    pizza: "assets/hero.jpg",
-    esfirra: "assets/esfirra-queijo.jpg"
+  var CATEGORY_LABEL = {
+    tradicional: "Tradicional",
+    especial: "Especial",
+    doce: "Doce",
+    salgada: "Salgada"
   };
 
   function esc(s) {
@@ -80,7 +74,7 @@
     toastTimer = setTimeout(function () { el.classList.remove("is-visible"); }, withUndo ? 5000 : 2600);
   }
 
-  /* ---------------- hidratação ---------------- */
+ 
   function hydrate() {
     $all("[data-bind='phone']").forEach(function (el) { el.textContent = cfg.phoneDisplay; });
     $all("[data-bind='address']").forEach(function (el) { el.textContent = cfg.address; });
@@ -141,10 +135,6 @@
     return '<p class="price-list">' + esc(parts.join(" · ")) + "</p>";
   }
 
-  function fallbackFor(product) {
-    return FALLBACK_IMG[product.kind] || FALLBACK_IMG.pizza;
-  }
-
   function cardHTML(product, type) {
     var isPizza = type === "pizza";
     var pills = isPizza
@@ -157,27 +147,24 @@
             ' title="' + esc(full) + '">' + esc(s.code + " · " + s.detail) + "</button>";
         }).join("") + "</div>"
       : "";
-    var badge = product.badge
-      ? '<span class="flag' + (product.badge === "Mais pedida" ? " flag--gold" : "") + '">' + esc(product.badge) + "</span>"
-      : "";
     var hint = isPizza ? "a partir de" : "unidade";
     var halfBtn = isPizza
       ? '<button type="button" class="link-half" data-half="' + esc(product.id) + '">½ meia-a-meia</button>'
       : "";
+    var catLabel = CATEGORY_LABEL[product.kind] || "";
     return (
       '<article class="product-card" data-kind="' + esc(product.kind || "") + '" data-name="' + esc((product.name + " " + product.desc).toLowerCase()) + '">' +
-        '<div class="product-media">' +
-          '<img src="' + esc(product.img) + '" srcset="' + esc(product.img) + ' 800w" sizes="(max-width: 680px) 50vw, (max-width: 1020px) 33vw, 25vw" alt="' + esc(product.name) + '" loading="lazy" decoding="async" width="800" height="600" onerror="this.onerror=null;this.src=\'' + fallbackFor(product) + '\'">' +
-          badge +
-        "</div>" +
         '<div class="product-body">' +
-          "<h3>" + esc(product.name) + "</h3>" +
+          '<div class="pc-head">' +
+            "<h3>" + esc(product.name) + "</h3>" +
+            (catLabel ? '<span class="cat-tag">' + esc(catLabel) + "</span>" : "") +
+          "</div>" +
           '<p class="product-desc">' + esc(product.desc) + "</p>" +
           priceListHTML(product) +
           pills + halfBtn +
           '<div class="product-foot">' +
-            '<span class="product-price" data-price data-base="' + product.price + '" data-id="' + esc(product.id) + '">' +
-              store.money(product.price) + "<small>" + hint + "</small>" +
+            '<span class="product-price" data-price data-base="' + priceFor(product, "P") + '" data-id="' + esc(product.id) + '">' +
+              store.money(priceFor(product, "P")) + "<small>" + hint + "</small>" +
             "</span>" +
             '<button type="button" class="add-btn" data-add="' + esc(product.id) + '" data-type="' + type + '" aria-label="Adicionar ' + esc(product.name) + ' ao pedido">' + I.plus + "Adicionar</button>" +
           "</div>" +
@@ -329,7 +316,6 @@
           : "Esfirra · unidade — " + store.money(unit);
         return (
           '<div class="cart-item">' +
-            '<img src="' + esc(p.img) + '" alt="' + esc(p.name) + '" loading="lazy" decoding="async" width="112" height="112" onerror="this.onerror=null;this.src=\'' + fallbackFor(p) + '\'">' +
             "<div><h4>" + esc(p.name) + (it.halfId && store.find(it.halfId) ? " / " + esc(store.find(it.halfId).name) : "") + "</h4>" +
               '<p class="meta">' + meta + "</p>" +
               '<div class="qty">' +
