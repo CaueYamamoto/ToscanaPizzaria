@@ -19,9 +19,9 @@ TOSCANA.config = {
   name: "Pizzaria Toscana",
   tagline: "Mais tempo de fermentação, mais sabor em cada mordida.",
   // WhatsApp: código do país + DDD + número, somente dígitos.
-  whatsapp: "5543991443669",
-  phoneDisplay: "(43) 99144-3669",
-  phoneHref: "tel:+5543991443669",
+  whatsapp: "5543991929937",
+  phoneDisplay: "(43) 99192-9937",
+  phoneHref: "tel:+5543991929937",
   address: "Cambé/PR",
   // Estruturado para o selo Aberto/Fechado (0=Dom ... 6=Sab). Segunda (1) fechado.
   hours: "Terça a domingo · 18h às 23h30",
